@@ -1,15 +1,13 @@
-import React, { Component } from 'react';
-import logo from '../../logo.svg';
-import './index.css';
-import {
-  Button
-} from 'antd';
-class App extends Component {
+import React from 'react';
+import { Button } from 'antd';
+
+export default class Index extends React.Component {
   render() {
     return (
-        <Button type="primary">primary</Button>
+    	<div>
+        	<Button type="primary">primary</Button>
+        </div>
     );
   }
 }
 
-export default App;
