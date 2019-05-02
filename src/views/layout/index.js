@@ -26,6 +26,7 @@ class Index extends React.Component{
           <Sider collapsible
                  trigger={null}
                  collapsed={this.state.collapsed}
+                  style={{background:'#fff'}}
                  >
             <SiderNav/>
           </Sider>

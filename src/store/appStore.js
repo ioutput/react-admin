@@ -1,25 +1,24 @@
 import {observable, action} from 'mobx'
-//import {isAuthenticated,authenticateSuccess,logout} from '../utils/Session'
 
 class AppStore {
-  //@observable isLogin = !!isAuthenticated()  //利用cookie来判断用户是否登录，避免刷新页面后登录状态丢失
-  @observable users = []  //模拟用户数据库
-  @observable loginUser = {}  //当前登录用户信息
-
+  @observable isLogin = false  //利用cookie来判断用户是否登录，避免刷新页面后登录状态丢失
+  @observable userinfo = {}  //当前登录用户信息
+  @observable collapsed = false
+  
   @action toggleLogin(flag,info={}) {
-    this.loginUser = info  //设置登录用户信息
+    this.userinfo = info  //设置登录用户信息
     if (flag) {
-      //authenticateSuccess(info.username)
+      localStorage.setItem('userinfo',JSON.stringify(info))
       this.isLogin = true
     } else {
-      //logout()
+      localStorage.removeItem('userinfo')
       this.isLogin = false
     }
 
   }
-  @action initUsers() {
-    const localUsers = localStorage['users']?JSON.parse(localStorage['users']):[]
-    this.users = [{username: 'admin', password: 'admin'},...localUsers]
+  @action init() {
+    this.userinfo = localStorage['userinfo'] !== undefined?JSON.parse(localStorage['userinfo']):{}
+    this.isLogin = this.userinfo.token !== undefined?true:false
   }
 }
 

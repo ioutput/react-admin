@@ -1,6 +1,5 @@
 import React from 'react'
-import { Icon, Badge, Dropdown, Menu, Modal } from 'antd'
-//import screenfull from 'screenfull'
+import { Icon, Badge, Dropdown, Menu } from 'antd'
 import { inject, observer } from 'mobx-react'
 import { Link, withRouter } from 'react-router-dom'
 
@@ -14,26 +13,12 @@ class HeaderBar extends React.Component {
     avatar: require('../../logo.svg')
   }
 
-  componentDidMount () {
-    //screenfull.onchange(() => {
-    //  this.setState({
-    //    icon: screenfull.isFullscreen ? 'shrink' : 'arrows-alt'
-    //  })
-    //})
-  }
 
-  componentWillUnmount () {
-    //screenfull.off('change')
-  }
 
   toggle = () => {
     this.props.onToggle()
   }
-  screenfullToggle = () => {
-    //if (screenfull.enabled) {
-    //  screenfull.toggle()
-    //}
-  }
+
   logout = () => {
     this.props.appStore.toggleLogin(false)
     this.props.history.push(this.props.location.pathname)
@@ -41,17 +26,17 @@ class HeaderBar extends React.Component {
 
   render () {
     const {icon, count, visible, avatar} = this.state
-    const {appStore, collapsed, location} = this.props
+    const {appStore, collapsed} = this.props;
     const notLogin = (
       <div>
-        <Link to={{pathname: '/login', state: {from: location}}} style={{color: 'rgba(0, 0, 0, 0.65)'}}>登录</Link>&nbsp;
+        <Link to={{pathname: '/login'}} style={{color: 'rgba(0, 0, 0, 0.65)'}}>登录</Link>&nbsp;
         <Icon type="smile" theme="twoTone" />
       </div>
     )
     const menu = (
       <Menu className='menu'>
         <Menu.ItemGroup title='用户中心' className='menu-group'>
-          <Menu.Item>你好 - </Menu.Item>
+          <Menu.Item>你好 - {appStore.userinfo.username}</Menu.Item>
           <Menu.Item>个人信息</Menu.Item>
           <Menu.Item><span onClick={this.logout}>退出登录</span></Menu.Item>
         </Menu.ItemGroup>
@@ -74,7 +59,7 @@ class HeaderBar extends React.Component {
           onClick={this.toggle}/>
         <div style={{lineHeight: '64px', float: 'right'}}>
           <ul className='header-ul'>
-            <li><Icon type={icon} onClick={this.screenfullToggle}/></li>
+
             <li onClick={() => this.setState({count: 0})}>
               <Badge count={appStore.isLogin ? count : 0} overflowCount={99} style={{marginRight: -17}}>
                 <Icon type="notification"/>
@@ -85,13 +70,6 @@ class HeaderBar extends React.Component {
             </li>
           </ul>
         </div>
-        <Modal
-          footer={null} closable={false}
-          visible={visible}
-          wrapClassName="vertical-center-modal"
-          onCancel={() => this.setState({visible: false})}>
-          <img src={avatar} alt="" width='100%'/>
-        </Modal>
       </div>
     )
   }
