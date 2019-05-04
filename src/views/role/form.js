@@ -1,32 +1,26 @@
 import React from 'react';
-import { Button,Form,Radio,Input,message } from 'antd';
+import { Button,Form,Radio,Input } from 'antd';
 import api from '../../api'
 const { Item } = Form;
 
 @Form.create()
-class Update extends React.Component {
+class Forms extends React.Component {
 
-	state={
-		id:0,
-	}
-	componentWillMount(){
-		this.setState({id:this.props.match.params.id})
-	}
+	
 	componentDidMount(){
-		api.user.view(this.state.id).then(res=>{
-			res.status = String(res.status)
-			//this.setState({data:res})
-			this.props.form.setFieldsValue(res)
-		})
+		if(this.props.id){
+			api.role.view(this.props.id).then(res=>{
+				res.status = String(res.status)
+				this.props.form.setFieldsValue(res)
+			})
+		}
+		
 	}
 	handleSubmit = (e) => {
     	e.preventDefault();
     	this.props.form.validateFields((err, values) => {
 	      if (!err) {
-	      	values.id = this.state.id
-	        api.user.update(values).then(res=>{
-	        	message.success(res.msg)
-	        })
+	        this.props.submit(values)
 	      }
 	    })
     }
@@ -39,21 +33,23 @@ class Update extends React.Component {
     	return (
     		<div>
         		<Form {...formItemLayout} onSubmit={this.handleSubmit}>
-			        <Item label="用户名">
-			          {getFieldDecorator('username',{rules:[{required:true,message:'请输入用户名'}]})(
-			            <Input allowClear placeholder="用户名" />
+			        <Item label="名称">
+			          {getFieldDecorator('name',{rules:[{required:true,message:'请输入名称'}]})(
+			            <Input allowClear placeholder="名称" />
 			          )}
 			        </Item>
+			        
 			        <Item label="状态">
-			          {getFieldDecorator('status')(
+			          {getFieldDecorator('status',{initialValue:'1'})(
 			            <Radio.Group>
 			              <Radio.Button value="1">启用</Radio.Button>
 			              <Radio.Button value="0">禁用</Radio.Button>
 			            </Radio.Group>
 			          )}
 			        </Item>
+			        
 			        <Item label="备注">
-			          {getFieldDecorator('descs')(
+			          {getFieldDecorator('remark')(
 			            <Input.TextArea rows={4} placeholder="请输入备注" />
 			          )}
 			        </Item>
@@ -66,4 +62,4 @@ class Update extends React.Component {
   	}
 }
 
-export default Update;
+export default Forms;

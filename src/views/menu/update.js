@@ -1,13 +1,31 @@
 import React from 'react';
-import { Button } from 'antd';
+import { message } from 'antd';
+import api from '../../api'
+import Forms from './form'
 
-export default class Update extends React.Component {
-  render() {
-    return (
-    	<div>
-        	<Button type="primary">用户更新</Button>
-        </div>
-    );
-  }
+class Update extends React.Component {
+
+	state={
+		id:0,
+	}
+	componentWillMount(){
+		this.setState({id:this.props.match.params.id})
+	}
+	submit = (data) => {
+	      	data.id = this.state.id
+	        api.menu.update(data).then(res=>{
+	        	message.success(res.msg)
+	        })
+    }
+  	render() {
+  		const { id } = this.state;
+    	return (
+    		<div>
+    			<Forms id={id} submit={param=>{this.submit(param)}} />
+        		
+        	</div>
+    	);
+  	}
 }
 
+export default Update;

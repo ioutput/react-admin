@@ -12,7 +12,7 @@ class Role extends React.Component {
       <div>
         <Switch>
           <Route path='/role/list' component={List}/>
-          <Route path='/role/update' component={Update}/>
+          <Route path='/role/update/:id' component={Update}/>
           <Redirect exact from='/role' to='/role/list'/>
         </Switch>
       </div>

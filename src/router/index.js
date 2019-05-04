@@ -1,13 +1,13 @@
 import React from 'react';
 import { inject } from 'mobx-react'
-import { withRouter, Switch, Redirect,Route } from 'react-router-dom'
+import { Switch, Redirect,Route } from 'react-router-dom'
 import Index from '../views/index'
 import User from '../views/user'
 import Munu from '../views/menu'
 import Role from '../views/role'
 import Log from '../views/log'
 
-@withRouter @inject('appStore')
+ @inject('appStore')
 class Router extends React.Component {
   componentDidMount(){
     if(!this.props.appStore.isLogin){

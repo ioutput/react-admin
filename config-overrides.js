@@ -24,5 +24,5 @@ module.exports = override(
 	"@box-shadow-base": "0 2px 8px rgba(0, 0, 0, .15)",*/  // 浮层阴影
    },
   }),//antd订制主题
-  addDecoratorsLegacy()//mobx修饰符
+  addDecoratorsLegacy()//es6修饰器
  );

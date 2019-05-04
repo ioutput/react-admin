@@ -1,14 +1,12 @@
-import http from './api'
+import user from './user'
+import menu from './menu'
+import role from './role'
+import log from './log'
 
 export default {
- 	async login (params) {
- 		let data = await http('post','user/login',params)
- 		return data
-  	},
-  	/*获取用户列表*/
-  	async getUser (params) {
- 		let data = await http('get','user/index',params)
- 		return data
-  	},
+  	user,
+  	menu,
+  	role,
+  	log,
 }
 

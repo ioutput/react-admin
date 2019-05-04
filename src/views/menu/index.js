@@ -12,7 +12,7 @@ class Menu extends React.Component {
       <div>
         <Switch>
           <Route path='/menu/list' component={List}/>
-          <Route path='/menu/update' component={Update}/>
+          <Route path='/menu/update/:id' component={Update}/>
           <Redirect exact from='/menu' to='/menu/list'/>
         </Switch>
       </div>

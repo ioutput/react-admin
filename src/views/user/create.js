@@ -4,28 +4,17 @@ import api from '../../api'
 const { Item } = Form;
 
 @Form.create()
-class Update extends React.Component {
+class Create extends React.Component {
 
-	state={
-		id:0,
-	}
-	componentWillMount(){
-		this.setState({id:this.props.match.params.id})
-	}
-	componentDidMount(){
-		api.user.view(this.state.id).then(res=>{
-			res.status = String(res.status)
-			//this.setState({data:res})
-			this.props.form.setFieldsValue(res)
-		})
-	}
+	
+	
 	handleSubmit = (e) => {
     	e.preventDefault();
     	this.props.form.validateFields((err, values) => {
 	      if (!err) {
-	      	values.id = this.state.id
-	        api.user.update(values).then(res=>{
+	        api.user.create(values).then(res=>{
 	        	message.success(res.msg)
+	        	this.props.setCreateState(false)
 	        })
 	      }
 	    })
@@ -44,8 +33,13 @@ class Update extends React.Component {
 			            <Input allowClear placeholder="用户名" />
 			          )}
 			        </Item>
+			        <Item label="密码">
+			          {getFieldDecorator('password',{rules:[{required:true,message:'请输入密码'}]})(
+			            <Input allowClear type="password" placeholder="密码" />
+			          )}
+			        </Item>
 			        <Item label="状态">
-			          {getFieldDecorator('status')(
+			          {getFieldDecorator('status',{initialValue:'1'})(
 			            <Radio.Group>
 			              <Radio.Button value="1">启用</Radio.Button>
 			              <Radio.Button value="0">禁用</Radio.Button>
@@ -66,4 +60,4 @@ class Update extends React.Component {
   	}
 }
 
-export default Update;
+export default Create;

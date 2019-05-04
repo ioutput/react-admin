@@ -12,7 +12,7 @@ class Login extends React.Component{
 	    e.preventDefault();
 	    this.props.form.validateFields((err, values) => {
 	      if (!err) {
-	        api.login(values).then(res=>{
+	        api.user.login(values).then(res=>{
 	        	if(res.userinfo !== undefined){
 	        		this.props.appStore.toggleLogin(true,res.userinfo)
 	        		this.props.history.push('/')

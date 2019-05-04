@@ -1,5 +1,5 @@
 import React from 'react'
-import { Icon, Badge, Dropdown, Menu } from 'antd'
+import { Badge, Dropdown, Menu,Icon } from 'antd'
 import { inject, observer } from 'mobx-react'
 import { Link, withRouter } from 'react-router-dom'
 
@@ -9,7 +9,6 @@ class HeaderBar extends React.Component {
   state = {
     icon: 'arrows-alt',
     count: 100,
-    visible: false,
     avatar: require('../../logo.svg')
   }
 
@@ -25,7 +24,7 @@ class HeaderBar extends React.Component {
   }
 
   render () {
-    const {icon, count, visible, avatar} = this.state
+    const { count, avatar} = this.state
     const {appStore, collapsed} = this.props;
     const notLogin = (
       <div>
