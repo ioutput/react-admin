@@ -1,5 +1,5 @@
 # react-admin
-this project includes react,antd,mobx
+this project includes react,antd,mobx,axios,react-router4
 
 ## Available Scripts
 
@@ -19,4 +19,6 @@ Launches the test runner in the interactive watch mode.<br>
 
 ### `yarn build`
 
+## 截图
 
+[]()

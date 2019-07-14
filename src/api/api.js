@@ -5,17 +5,17 @@ import store from '../store'
 // create an axios instance
 const service = Axios.create({
   //baseURL: process.env.BASE_API, // api 的 base_url
-  baseURL: 'http://',
+  baseURL: 'http://localhost:3008',
   timeout: 5000 // request timeout
 });
 service.interceptors.request.use(
   config => {
-    let time = new Date().getTime();
+    /* let time = new Date().getTime();
     config.headers['time'] = time
-    let key = '3weae^@#as$*%2365*4rwads'
+    let key = '3weae^@#as$*%2365*4rwads' */
     // 让每个请求携带token-- ['X-Token']为自定义key 请根据实际情况自行修改
-    config.headers['token'] = store.appStore.userinfo.token
-    config.headers['Authorization'] = 'Bearer ' + md5(store.appStore.userinfo.token + key + time)
+    config.headers['token'] = store.appStore.token
+    //config.headers['Authorization'] = 'Bearer ' + md5(store.appStore.userinfo.token + key + time)
     return config
   },
   error => {

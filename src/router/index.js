@@ -11,7 +11,7 @@ import Log from '../views/log'
 class Router extends React.Component {
   componentDidMount(){
     if(!this.props.appStore.isLogin){
-      this.props.history.push('/login')
+      window.location.href = "/login"
     }
   }
   render() {

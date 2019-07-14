@@ -1,7 +1,7 @@
 import React from 'react'
 import './index.less';
 import { inject } from 'mobx-react'
-import {Form, Icon, Input, Button} from 'antd';
+import {Form, Icon, Input, Button,Message} from 'antd';
 import api from '../../api';
 
 
@@ -13,10 +13,13 @@ class Login extends React.Component{
 	    this.props.form.validateFields((err, values) => {
 	      if (!err) {
 	        api.user.login(values).then(res=>{
-	        	if(res.userinfo !== undefined){
-	        		this.props.appStore.toggleLogin(true,res.userinfo)
+	        	if(res.status == 200){
+					this.props.appStore.toggleLogin(true,res.data.data)
+					this.props.appStore.setToken(res.data.token)
 	        		this.props.history.push('/')
-	        	}
+	        	}else{
+					Message.error(res.data.data);
+				}
 	        })
 	        
 	      }

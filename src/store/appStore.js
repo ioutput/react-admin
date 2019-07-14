@@ -3,6 +3,7 @@ import {observable, action} from 'mobx'
 class AppStore {
   @observable isLogin = false  //利用cookie来判断用户是否登录，避免刷新页面后登录状态丢失
   @observable userinfo = {}  //当前登录用户信息
+  @observable token = ''
   @observable collapsed = false
   
   @action toggleLogin(flag,info={}) {
@@ -15,6 +16,9 @@ class AppStore {
       this.isLogin = false
     }
 
+  }
+  @action setToken(token) {
+    this.token = token
   }
   @action init() {
     this.userinfo = localStorage['userinfo'] !== undefined?JSON.parse(localStorage['userinfo']):{}
