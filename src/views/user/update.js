@@ -14,9 +14,9 @@ class Update extends React.Component {
 	}
 	componentDidMount(){
 		api.user.view(this.state.id).then(res=>{
-			res.status = String(res.status)
+			res.data.status = String(res.data.status)
 			//this.setState({data:res})
-			this.props.form.setFieldsValue(res)
+			this.props.form.setFieldsValue(res.data)
 		})
 	}
 	handleSubmit = (e) => {
@@ -25,7 +25,7 @@ class Update extends React.Component {
 	      if (!err) {
 	      	values.id = this.state.id
 	        api.user.update(values).then(res=>{
-	        	message.success(res.msg)
+	        	message.success(res.data)
 	        })
 	      }
 	    })
@@ -53,7 +53,7 @@ class Update extends React.Component {
 			          )}
 			        </Item>
 			        <Item label="备注">
-			          {getFieldDecorator('descs')(
+			          {getFieldDecorator('remark')(
 			            <Input.TextArea rows={4} placeholder="请输入备注" />
 			          )}
 			        </Item>

@@ -1,5 +1,4 @@
 import Axios from 'axios'
-import md5 from 'md5'
 import store from '../store'
 
 // create an axios instance
@@ -10,12 +9,8 @@ const service = Axios.create({
 });
 service.interceptors.request.use(
   config => {
-    /* let time = new Date().getTime();
-    config.headers['time'] = time
-    let key = '3weae^@#as$*%2365*4rwads' */
     // 让每个请求携带token-- ['X-Token']为自定义key 请根据实际情况自行修改
     config.headers['token'] = store.appStore.token
-    //config.headers['Authorization'] = 'Bearer ' + md5(store.appStore.userinfo.token + key + time)
     return config
   },
   error => {
@@ -59,8 +54,8 @@ service.interceptors.response.use(
   // },
   error => {
     if (error.response.status === 401) {
-      //localStorage.removeItem('user_info')
-      //location.replace('/login')
+      store.appStore.toggleLogin(false)
+      window.location.href = '/login'
     }
   }
 )

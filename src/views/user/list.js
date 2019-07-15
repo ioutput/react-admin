@@ -37,14 +37,20 @@ class List extends React.Component {
 			this.setState({dataSource:res.data,pagination:{...this.state.pagination,total:res.total_count}})
 		})
 	}
-	//跳转分页或分页数改变
+	/**跳转分页或分页数改变 */
 	handleChange(page,size){
       this.setState({pagination:{...this.state.pagination,current:page,pageSize:size}})
       this.list({page:page,page_size:size})
     }
     handDelete(id){
     	api.user.delete(id).then(res=>{
-    		message.success(res.msg)
+			if(res.status ===200){
+				message.success(res.data)
+				this.list()
+			}else{
+				message.error(res.data)
+			}
+    			
     	})
     }
     handleSubmit = (e) => {
@@ -80,9 +86,9 @@ class List extends React.Component {
 	  { title: '用户名', dataIndex: 'username',align:'center' },
 	  { title: '状态', dataIndex: 'status',align:'center' },
 	  {
-	    title: '操作', dataIndex: '', render: (text, record) => (<span><Link to={'/user/update/'+record.id}>编辑</Link>
+	    title: '操作', dataIndex: '', render: (text, record) => (<span><Link to={'/user/update/'+record.id}><Button type="primary">编辑</Button></Link>
 	    <Popconfirm title="您确定要删除吗" onConfirm={()=>this.handDelete(record.id)} okText="确定" cancelText="取消" icon={<Icon type="question-circle-o" style={{ color: 'red' }} />}>
-	    	<Button>删除</Button></Popconfirm></span>)
+	    	<Button type="danger">删除</Button></Popconfirm></span>)
 	  },
 	];
     return (

@@ -23,7 +23,7 @@ export default {
   	},
   	/*删除*/
   	delete (params) {
- 		return http('delete',model+'/'+params.id)
+ 		return http('delete',model+'/'+params)
   	},
 }
 

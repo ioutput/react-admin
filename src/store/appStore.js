@@ -13,16 +13,19 @@ class AppStore {
       this.isLogin = true
     } else {
       localStorage.removeItem('userinfo')
+      localStorage.removeItem('token')
       this.isLogin = false
     }
 
   }
   @action setToken(token) {
     this.token = token
+    localStorage.setItem('token',token)
   }
   @action init() {
     this.userinfo = localStorage['userinfo'] !== undefined?JSON.parse(localStorage['userinfo']):{}
-    this.isLogin = this.userinfo.token !== undefined?true:false
+    this.token = localStorage['token']
+    this.isLogin = this.token !== undefined?true:false
   }
 }
 
