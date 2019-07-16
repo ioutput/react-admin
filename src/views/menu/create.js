@@ -7,7 +7,14 @@ class Create extends React.Component {
 
 	submit = (data) => {
 	        api.menu.create(data).then(res=>{
-	        	message.success(res.msg)
+				if(res.status ===200){
+					message.success(res.msg)
+					this.props.setCreateState(false)
+					this.props.list()
+				}else{
+					message.error(res.msg)
+				}
+	        		
 	        })
     }
   	render() {

@@ -74,7 +74,7 @@ class List extends React.Component {
 	          footer={null}
 	          onCancel={()=>this.setState({showcreate:false})}
 	        >
-	          	<Create setCreateState={status=>{this.setCreateState(status)}} />
+	          	<Create setCreateState={status=>{this.setCreateState(status)}} list={()=>this.list()}/>
 	        </Modal>
     	)
     }
@@ -82,14 +82,18 @@ class List extends React.Component {
   	let {dataSource,pagination} = this.state
   	const { getFieldDecorator } = this.props.form;
   	let columns = [
-	  { title: '序号', dataIndex: 'id',align:'center' },
-	  { title: '用户名', dataIndex: 'username',align:'center' },
-	  { title: '状态', dataIndex: 'status',align:'center' },
-	  {
-	    title: '操作', dataIndex: '', render: (text, record) => (<span><Link to={'/user/update/'+record.id}><Button type="primary">编辑</Button></Link>
-	    <Popconfirm title="您确定要删除吗" onConfirm={()=>this.handDelete(record.id)} okText="确定" cancelText="取消" icon={<Icon type="question-circle-o" style={{ color: 'red' }} />}>
-	    	<Button type="danger">删除</Button></Popconfirm></span>)
-	  },
+		{ title: '序号', dataIndex: 'id',align:'center' },
+		{ title: '用户名', dataIndex: 'username',align:'center' },
+		{ title: '状态', dataIndex: 'status',align:'center',
+			render: text => (
+				<div>{text===1?'可用':'禁用'}</div>
+			)
+		},
+		{
+			title: '操作', dataIndex: '', render: (text, record) => (<span><Link to={'/user/update/'+record.id}><Button type="primary">编辑</Button></Link>
+			<Popconfirm title="您确定要删除吗" onConfirm={()=>this.handDelete(record.id)} okText="确定" cancelText="取消" icon={<Icon type="question-circle-o" style={{ color: 'red' }} />}>
+				<Button type="danger">删除</Button></Popconfirm></span>)
+		},
 	];
     return (
     	<div>

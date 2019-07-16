@@ -68,7 +68,7 @@ class List extends React.Component {
 	          footer={null}
 	          onCancel={()=>this.setState({showcreate:false})}
 	        >
-	          	<Create setCreateState={status=>{this.setCreateState(status)}} />
+	          	<Create setCreateState={status=>{this.setCreateState(status)}} list={()=>this.list()} />
 	        </Modal>
     	)
     }
@@ -78,11 +78,12 @@ class List extends React.Component {
   	let columns = [
 	  { title: '序号', dataIndex: 'id',align:'center' },
 	  { title: '菜单名称', dataIndex: 'name',align:'center' },
+	  { title: '路由', dataIndex: 'url',align:'center' },
 	  { title: '状态', dataIndex: 'status',align:'center' },
 	  {
-	    title: '操作', dataIndex: '', render: (text, record) => (<span><Link to={'/menu/update/'+record.id}>编辑</Link>
-	    <Popconfirm title="您确定要删除吗" onConfirm={()=>this.handDelete(record.id)} okText="确定" cancelText="取消" icon={<Icon type="question-circle-o" style={{ color: 'red' }} />}>
-	    	<Button>删除</Button></Popconfirm></span>)
+	    title: '操作', dataIndex: '', render: (text, record) => (<span><Link to={'/menu/update/'+record.id}><Button type="primary">编辑</Button></Link>
+		<Popconfirm title="您确定要删除吗" onConfirm={()=>this.handDelete(record.id)} okText="确定" cancelText="取消" icon={<Icon type="question-circle-o" style={{ color: 'red' }} />}>
+			<Button type="danger">删除</Button></Popconfirm></span>)
 	  },
 	];
     return (

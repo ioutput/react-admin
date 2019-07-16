@@ -13,8 +13,14 @@ class Create extends React.Component {
     	this.props.form.validateFields((err, values) => {
 	      if (!err) {
 	        api.user.create(values).then(res=>{
-	        	message.success(res.msg)
-	        	this.props.setCreateState(false)
+				if(res.status ===200){
+					message.success(res.msg)
+					this.props.setCreateState(false)
+					this.props.list()
+				}else{
+					message.error(res.msg)
+				}
+	        	
 	        })
 	      }
 	    })

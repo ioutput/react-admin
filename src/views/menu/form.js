@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button,Form,Radio,Input } from 'antd';
+import { Button,Form,Radio,Input,InputNumber } from 'antd';
 import api from '../../api'
 const { Item } = Form;
 
@@ -10,9 +10,9 @@ class Forms extends React.Component {
 	componentDidMount(){
 		if(this.props.id){
 			api.menu.view(this.props.id).then(res=>{
-				res.status = String(res.status)
-				res.is_menu = String(res.is_menu)
-				this.props.form.setFieldsValue(res)
+				res.data.status = String(res.data.status)
+				res.data.is_menu = String(res.data.is_menu)
+				this.props.form.setFieldsValue(res.data)
 			})
 		}
 		
@@ -58,6 +58,11 @@ class Forms extends React.Component {
 			              <Radio.Button value="1">是</Radio.Button>
 			              <Radio.Button value="0">否</Radio.Button>
 			            </Radio.Group>
+			          )}
+			        </Item>
+					<Item label="排序">
+			          {getFieldDecorator('sort',{initialValue:999})(
+			            <InputNumber min={1} max={999}  />
 			          )}
 			        </Item>
 			        <Item label="备注">

@@ -1,8 +1,8 @@
 import http from './api'
 //用户
-let model = 'user'
+let model = 'api/user'
 export default {
- 	  login (params) {
+ 	login (params) {
  		return http('post','/login',params)
   	},
   	/*获取列表*/

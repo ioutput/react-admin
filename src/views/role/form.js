@@ -10,8 +10,8 @@ class Forms extends React.Component {
 	componentDidMount(){
 		if(this.props.id){
 			api.role.view(this.props.id).then(res=>{
-				res.status = String(res.status)
-				this.props.form.setFieldsValue(res)
+				res.data.status = String(res.data.status)
+				this.props.form.setFieldsValue(res.data)
 			})
 		}
 		
