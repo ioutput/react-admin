@@ -14,7 +14,7 @@ class Update extends React.Component {
 	submit = (data) => {
 	      	data.id = this.state.id
 	        api.menu.update(data).then(res=>{
-	        	message.success(res.msg)
+	        	message.success(res.data)
 	        })
     }
   	render() {

@@ -21,6 +21,10 @@ export default {
   	/*删除*/
   	delete (params) {
  		   return http('delete',model+'/'+params)
+	},
+	  /*等级菜单*/
+  	levelmenu () {
+		return http('get','api/levelmenu')
   	},
 }
 

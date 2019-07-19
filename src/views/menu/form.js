@@ -1,11 +1,13 @@
 import React from 'react';
-import { Button,Form,Radio,Input,InputNumber } from 'antd';
+import { Button,Form,Radio,Input,InputNumber,TreeSelect  } from 'antd';
 import api from '../../api'
 const { Item } = Form;
 
 @Form.create()
 class Forms extends React.Component {
-
+	state={
+		menus:[]
+	}
 	
 	componentDidMount(){
 		if(this.props.id){
@@ -15,7 +17,9 @@ class Forms extends React.Component {
 				this.props.form.setFieldsValue(res.data)
 			})
 		}
-		
+		api.menu.levelmenu().then(res=>{
+			this.setState({menus:res.data})
+		})
 	}
 	handleSubmit = (e) => {
     	e.preventDefault();
@@ -30,10 +34,22 @@ class Forms extends React.Component {
   		const formItemLayout = {
 	      labelCol: { span: 6 },
 	      wrapperCol: { span: 14 },
-	    };
+		};
+		let menus = this.state.menus
     	return (
     		<div>
         		<Form {...formItemLayout} onSubmit={this.handleSubmit}>
+					<Item label="上级菜单">
+			          {getFieldDecorator('pid',{rules:[{required:true,message:'请选择上级菜单'}]})(
+			            <TreeSelect
+							style={{ width: 300 }}
+							dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
+							treeData={menus}
+							placeholder="Please select"
+							treeDefaultExpandAll
+						/>
+			          )}
+			        </Item>
 			        <Item label="菜单名称">
 			          {getFieldDecorator('name',{rules:[{required:true,message:'请输入菜单名称'}]})(
 			            <Input allowClear placeholder="菜单名称" />

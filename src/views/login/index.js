@@ -13,7 +13,7 @@ class Login extends React.Component{
 	    this.props.form.validateFields((err, values) => {
 	      if (!err) {
 	        api.user.login(values).then(res=>{
-	        	if(res.status == 200){
+	        	if(res.status === 200){
 					this.props.appStore.toggleLogin(true,res.data)
 					this.props.appStore.setToken(res.token)
 	        		this.props.history.push('/')
