@@ -71,7 +71,8 @@ export default function http(method, url, params, headers = {}) {
     } else {
       query = service({
         method: method,
-        url, data: params
+        url, data: params,
+        headers:headers
       });
     }
   } else {
