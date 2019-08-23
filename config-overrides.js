@@ -1,4 +1,7 @@
-
+/**配置打包路径 */
+/* const path = require('path')
+const paths = require('react-scripts/config/paths');
+paths.appBuild = path.join(path.dirname(paths.appBuild), '../dist');  */
 const { override, fixBabelImports,addLessLoader,addDecoratorsLegacy } = require('customize-cra');
 module.exports = override(
    fixBabelImports('import', {
