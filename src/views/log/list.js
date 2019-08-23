@@ -1,6 +1,7 @@
 import React from 'react';
 import { Table,Button,Form,Select,DatePicker} from 'antd';
-import api from '../../api'
+import { list } from '../../api/log'
+import { list as listUser } from '../../api/user'
 const { Option } = Select;
 const { Item } = Form;
 const { RangePicker } = DatePicker;
@@ -25,17 +26,16 @@ class List extends React.Component {
 		}
 	}
 	componentDidMount(){
-		api.user.list({page_size:100}).then(res=>{
+		listUser({page_size:100}).then(res=>{
 			this.setState({users:res.data})
 		})
 		this.list()
 	}
 	//获取列表
-	list(params){
+	async list(params){
 		let current = {page:this.state.pagination.current,page_size:this.state.pagination.pageSize}
-		api.log.list(Object.assign(current,params)).then(res=>{
-			this.setState({dataSource:res.data,pagination:{...this.state.pagination,total:res.total_count}})
-		})
+		let res = await list({...current,...params})
+		this.setState({dataSource:res.data,pagination:{...this.state.pagination,total:res.total_count}})
 		
 	}
 	//跳转分页或分页数改变

@@ -2,7 +2,7 @@ import React from 'react'
 import './index.less';
 import { inject } from 'mobx-react'
 import {Form, Icon, Input, Button,Message} from 'antd';
-import api from '../../api';
+import {login} from '../../api/user';
 
 
 @Form.create() @inject('appStore')
@@ -15,7 +15,7 @@ class Login extends React.Component{
 			var formData = new FormData();
 			formData.append('username',values.username);
 			formData.append('password',values.password)
-	        api.user.login(formData).then(res=>{
+	        login(formData).then(res=>{
 	        	if(res.status === 200){
 					this.props.appStore.toggleLogin(true,res.data)
 					this.props.appStore.setToken(res.token)

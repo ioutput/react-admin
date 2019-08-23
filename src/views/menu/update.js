@@ -1,6 +1,6 @@
 import React from 'react';
 import { message } from 'antd';
-import api from '../../api'
+import { update } from '../../api/menu'
 import Forms from './form'
 
 class Update extends React.Component {
@@ -11,11 +11,10 @@ class Update extends React.Component {
 	componentWillMount(){
 		this.setState({id:this.props.match.params.id})
 	}
-	submit = (data) => {
+	submit = async (data) => {
 	      	data.id = this.state.id
-	        api.menu.update(data).then(res=>{
-	        	message.success(res.data)
-	        })
+	        let res = await update(data)
+	        message.success(res.data)
     }
   	render() {
   		const { id } = this.state;

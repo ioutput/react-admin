@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button,Form,Radio,Input,message } from 'antd';
-import api from '../../api'
+import {view,update} from '../../api/user'
 const { Item } = Form;
 
 @Form.create()
@@ -13,7 +13,7 @@ class Update extends React.Component {
 		this.setState({id:this.props.match.params.id})
 	}
 	componentDidMount(){
-		api.user.view(this.state.id).then(res=>{
+		view(this.state.id).then(res=>{
 			res.data.status = String(res.data.status)
 			//this.setState({data:res})
 			this.props.form.setFieldsValue(res.data)
@@ -24,7 +24,7 @@ class Update extends React.Component {
     	this.props.form.validateFields((err, values) => {
 	      if (!err) {
 	      	values.id = this.state.id
-	        api.user.update(values).then(res=>{
+	        update(values).then(res=>{
 	        	message.success(res.data)
 	        })
 	      }

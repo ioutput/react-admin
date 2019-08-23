@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button,Form,Radio,Input,message } from 'antd';
-import api from '../../api'
+import { create } from '../../api/user'
 const { Item } = Form;
 
 @Form.create()
@@ -12,7 +12,7 @@ class Create extends React.Component {
     	e.preventDefault();
     	this.props.form.validateFields((err, values) => {
 	      if (!err) {
-	        api.user.create(values).then(res=>{
+	        create(values).then(res=>{
 				if(res.status ===200){
 					message.success(res.msg)
 					this.props.setCreateState(false)

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Table,Button,Popconfirm,Icon,Form,Input,Select,Modal,message } from 'antd';
 import {Link} from 'react-router-dom'
-import api from '../../api'
+import { list,del } from '../../api/role'
 import Create from './create'
 const { Option } = Select;
 const { Item } = Form;
@@ -31,21 +31,21 @@ class List extends React.Component {
 		this.list()
 	}
 	//获取列表
-	list(params){
+	async list(params){
 		let current = {page:this.state.pagination.current,page_size:this.state.pagination.pageSize}
-		api.role.list(Object.assign(current,params)).then(res=>{
-			this.setState({dataSource:res.data,pagination:{...this.state.pagination,total:res.total_count}})
-		})
+		let res = await list({...current,...params})
+		this.setState({dataSource:res.data,pagination:{...this.state.pagination,total:res.total_count}})
+		
 	}
 	//跳转分页或分页数改变
 	handleChange(page,size){
       this.setState({pagination:{...this.state.pagination,current:page,pageSize:size}})
       this.list({page:page,page_size:size})
     }
-    handDelete(id){
-    	api.role.delete(id).then(res=>{
-    		message.success(res.msg)
-    	})
+    async handDelete(id){
+    	let res = await del(id)
+    	message.success(res.msg)
+    	
     }
     handleSubmit = (e) => {
     	e.preventDefault();

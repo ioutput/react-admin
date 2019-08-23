@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button,Form,Radio,Input } from 'antd';
-import api from '../../api'
+import { view } from '../../api/role'
 const { Item } = Form;
 
 @Form.create()
@@ -9,7 +9,7 @@ class Forms extends React.Component {
 	
 	componentDidMount(){
 		if(this.props.id){
-			api.role.view(this.props.id).then(res=>{
+			view(this.props.id).then(res=>{
 				res.data.status = String(res.data.status)
 				this.props.form.setFieldsValue(res.data)
 			})

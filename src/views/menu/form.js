@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button,Form,Radio,Input,InputNumber,TreeSelect  } from 'antd';
-import api from '../../api'
+import { view,levelmenu } from '../../api/menu'
 const { Item } = Form;
 
 @Form.create()
@@ -11,13 +11,13 @@ class Forms extends React.Component {
 	
 	componentDidMount(){
 		if(this.props.id){
-			api.menu.view(this.props.id).then(res=>{
+			view(this.props.id).then(res=>{
 				res.data.status = String(res.data.status)
 				res.data.is_menu = String(res.data.is_menu)
 				this.props.form.setFieldsValue(res.data)
 			})
 		}
-		api.menu.levelmenu().then(res=>{
+		levelmenu().then(res=>{
 			this.setState({menus:res.data})
 		})
 	}
