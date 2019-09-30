@@ -6,7 +6,7 @@ import Forms from './form'
 class Create extends React.Component {
 
 	submit = async (data) => {
-	        let res = create(data)
+	        let res = await create(data)
 			if(res.status ===200){
 				message.success(res.msg)
 				this.props.setCreateState(false)
